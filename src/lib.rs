@@ -7,7 +7,7 @@ pub struct Clock {
     m: Option<u64>,
     hour: Option<String>,
     minute: Option<String>,
-    numbers: Vec<String>,
+    numbers: [String; 60],
 }
 impl Clock {
     pub fn new(gmt_hour: u64, gmt_minute: u64) -> Self {
@@ -17,7 +17,7 @@ impl Clock {
             m: None,
             hour: None,
             minute: None,
-            numbers: vec![
+            numbers: [
                 "Zero".to_string(),
                 "One".to_string(),
                 "Two".to_string(),
@@ -95,13 +95,12 @@ impl Clock {
     }
     pub fn to_string(&mut self) {
         self.hour = match self.h {
-            None => None,
             Some(0) => Some("Twelve".to_string()),
             Some(1..12) => Some(self.numbers[self.h.unwrap() as usize].clone()),
             _ => None,
         };
         self.minute = match self.m {
-            None => None,
+            Some(0) => Some("".to_string()),
             Some(1..60) => Some(self.numbers[self.m.unwrap() as usize].clone()),
             _ => None,
         };
