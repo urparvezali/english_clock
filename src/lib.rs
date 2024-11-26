@@ -1,6 +1,5 @@
 use std::time::{SystemTime, UNIX_EPOCH};
 
-#[derive(Debug)]
 pub struct Clock {
     gmt: u64,
     h: Option<u64>,
@@ -18,7 +17,7 @@ impl Clock {
             hour: None,
             minute: None,
             numbers: [
-                "Zero".to_string(),
+                "".to_string(),
                 "One".to_string(),
                 "Two".to_string(),
                 "Three".to_string(),
@@ -100,8 +99,7 @@ impl Clock {
             _ => None,
         };
         self.minute = match self.m {
-            Some(0) => Some("".to_string()),
-            Some(1..60) => Some(self.numbers[self.m.unwrap() as usize].clone()),
+            Some(0..60) => Some(self.numbers[self.m.unwrap() as usize].clone()),
             _ => None,
         };
     }
